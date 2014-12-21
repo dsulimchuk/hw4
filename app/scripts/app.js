@@ -38,7 +38,7 @@
          });
     }])
     .config(['RestangularProvider', function (RestangularProvider) {
-      RestangularProvider.setBaseUrl('/data');
+      RestangularProvider.setBaseUrl('data');
       RestangularProvider.setRequestSuffix('.json');
     }])
     .run(['$rootScope', 'SearchFormService', function ($rootScope, SearchFormService) {
