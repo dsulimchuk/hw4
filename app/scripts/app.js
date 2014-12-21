@@ -18,7 +18,8 @@
           templateUrl: 'views/search.html',
           controller: 'SearchController',
           controllerAs: 'ctrl',
-          title: title('Search')
+          title: title('Search'),
+          reloadOnSearch: false
         })
         .when('/product/:productId', {
           templateUrl: 'views/product.html',
@@ -40,9 +41,12 @@
       RestangularProvider.setBaseUrl('/data');
       RestangularProvider.setRequestSuffix('.json');
     }])
-    .run(['$rootScope', function ($rootScope) {
+    .run(['$rootScope', 'SearchFormService', function ($rootScope, SearchFormService) {
       $rootScope.$on('$routeChangeSuccess', function (event, currentRoute) {
         $rootScope.pageTitle = currentRoute.title;
+
+        //register listener on params to SearchForm
+        SearchFormService.applyLocationParams(currentRoute.params);
       });
     }]);
 }());

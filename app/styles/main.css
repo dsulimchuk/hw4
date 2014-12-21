@@ -6,3 +6,7 @@ body {
 .slider.slider-horizontal {
   width: 100%;
 }
+
+.ng-invalid {
+  border-color: mediumvioletred;
+}

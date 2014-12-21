@@ -11,9 +11,9 @@
         <div class="navbar-collapse collapse">
             <form class="navbar-form navbar-left navbar-input-group" role="search">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Enter product name">
+                    <input type="text" class="form-control" placeholder="Enter product name" ng-model="navbarCtrl.product" >
                 </div>
-                <a ng-href="#/search" class="btn btn-default">Search</a>
+                <a ng-click="navbarCtrl.submitBtn()" class="btn btn-default">Search</a>
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="javascript:void(0)"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>

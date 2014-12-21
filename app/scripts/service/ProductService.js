@@ -19,6 +19,7 @@
 
     /** Finds products with specified criteria. */
     find: function (params) {
+      console.log(params);
       return this.Restangular.all('products').getList(params);
     },
 
