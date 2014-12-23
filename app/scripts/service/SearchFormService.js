@@ -5,29 +5,28 @@
     var location;
     var today = new Date();
     var DEFAULTS = {
-        product : "",
-        category : "",
+        product : '',
+        category : '',
         maxCloseDate : today.getMonth() +'/'+ today.getDate() + '/' +today.getFullYear(),
         numOfBids : 4,
         lowPrice : 0,
         highPrice : 500
     };
 
-    function init() {
-        this.product = DEFAULTS.product;
-        this.category = DEFAULTS.category;
-        this.maxCloseDate = DEFAULTS.maxCloseDate;
-        this.numOfBids = DEFAULTS.numOfBids;
-        this.lowPrice = DEFAULTS.lowPrice;
-        this.highPrice = DEFAULTS.highPrice;
-    }
+    //Fill all variables default values
+    var init = function() {
+        for (var param in DEFAULTS) {
+            SearchFormService[param] = DEFAULTS[param];
+        }
+    };
 
     var SearchFormService = function($location, ProductService){
         productService = ProductService;
         location = $location;
 
-        init.call(this);
+        init();
     };
+
     SearchFormService.prototype = {
 
         getParamsByModel: function () {
@@ -40,6 +39,7 @@
             }
             return locationObj;
         },
+
         submitBtn : function(){
             var locationObj = this.getParamsByModel();
             if (location.path() !== '/search') {
@@ -48,19 +48,15 @@
                 location.search(locationObj);
                 productService.find(locationObj);
             }
-
-
-
-
         },
 
         applyLocationParams : function(params){
             if (location.$$path === '/search' && params) {
                 //reset all service val
-                init.call(this);
-                //set by params
+                init();
 
-                for (var param in params.getOwnPropertyNames()) {
+                //set by params
+                for (var param in params) {
                     if (param in DEFAULTS) {
                         if (typeof DEFAULTS[param] === 'number') {
                             this[param] = parseFloat(params[param]);
@@ -72,7 +68,7 @@
             }
 
         }
-    }
+    };
 
     angular.module('auction').service('SearchFormService',['$location', 'ProductService', SearchFormService]);
 
