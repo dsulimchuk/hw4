@@ -14,9 +14,9 @@
     };
 
     //Fill all variables default values
-    var init = function() {
+    var init = function(searchFormService) {
         for (var param in DEFAULTS) {
-            SearchFormService[param] = DEFAULTS[param];
+            searchFormService[param] = DEFAULTS[param];
         }
     };
 
@@ -24,7 +24,7 @@
         productService = ProductService;
         location = $location;
 
-        init();
+        init(this);
     };
 
     SearchFormService.prototype = {
@@ -53,7 +53,7 @@
         applyLocationParams : function(params){
             if (location.$$path === '/search' && params) {
                 //reset all service val
-                init();
+                init(this);
 
                 //set by params
                 for (var param in params) {
