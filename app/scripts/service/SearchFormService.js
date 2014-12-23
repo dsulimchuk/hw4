@@ -34,7 +34,7 @@
             var locationObj = {};
             for (var param in this) {
                 var paramType = typeof (this[param]);
-                if ((paramType == 'string' || paramType == 'number') && this[param] && this[param] != DEFAULTS[param]) {
+                if ((paramType === 'string' || paramType === 'number') && this[param] && this[param] !== DEFAULTS[param]) {
                     locationObj[param] = this[param];
                 }
             }
@@ -42,8 +42,8 @@
         },
         submitBtn : function(){
             var locationObj = this.getParamsByModel();
-            if (location.path() != "/search") {
-                location.search(locationObj).path("/search");
+            if (location.path() !== '/search') {
+                location.search(locationObj).path('/search');
             } else {
                 location.search(locationObj);
                 productService.find(locationObj);
@@ -55,22 +55,20 @@
         },
 
         applyLocationParams : function(params){
-            if (location.$$path == "/search" && params) {
+            if (location.$$path === '/search' && params) {
                 //reset all service val
                 init.call(this);
                 //set by params
-                for (var param in params) {
-                    if (DEFAULTS[param] != 'undefined') {
-                        if (typeof DEFAULTS[param] == 'number') {
+
+                for (var param in params.getOwnPropertyNames()) {
+                    if (param in DEFAULTS) {
+                        if (typeof DEFAULTS[param] === 'number') {
                             this[param] = parseFloat(params[param]);
-                        } else if (typeof DEFAULTS[param] == 'string') {
+                        } else if (typeof DEFAULTS[param] === 'string') {
                             this[param] = params[param];
                         }
-
                     }
                 }
-                var locationObj = this.getParamsByModel();
-                productService.find(locationObj);
             }
 
         }

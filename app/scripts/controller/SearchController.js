@@ -6,7 +6,9 @@
     _this.products = [];
     this.searchForm = searchFormService;
 
-    productService.find()
+    //get params from searchService
+    var locationObj = searchFormService.getParamsByModel();
+    productService.find(locationObj)
         .then(function (data) { _this.products = data; });
   };
 
